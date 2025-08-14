@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
+        background-size: 400% 400%;
+        animation: gradientBG 10s ease infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+        font-size: 3em;
+        color: white;
+        text-shadow: 0 0 20px gold, 0 0 30px orange;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 10px gold, 0 0 20px orange; }
+        to { text-shadow: 0 0 30px gold, 0 0 50px orange; }
+    }
+
+    .balloon {
+        position: absolute;
+        bottom: -150px;
+        width: 50px;
+        height: 70px;
+        background: red;
+        border-radius: 50% 50% 50% 50%;
+        animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-110vh); }
+    }
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+</style>
+</head>
+<body>
+
+<h1>🎉 Happy Birthday 🎂</h1>
+<canvas id="confetti"></canvas>
+
+<audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    // Generate Balloons
+    for (let i = 0; i < 20; i++) {
+        let balloon = document.createElement("div");
+        balloon.classList.add("balloon");
+        balloon.style.left = Math.random() * 100 + "vw";
+        balloon.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+        balloon.style.animationDuration = (5 + Math.random() * 5) + "s";
+        document.body.appendChild(balloon);
+    }
+
+    // Confetti Animation
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const confettiPieces = [];
+    for (let i = 0; i < 150; i++) {
+        confettiPieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 5 + 2,
+            color: `hsl(${Math.random()*360}, 100%, 50%)`,
+            speed: Math.random() + 1
+        });
+    }
+
+    function drawConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiPieces.forEach(p => {
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+            p.y += p.speed;
+            if (p.y > canvas.height) {
+                p.y = 0 - p.size;
+                p.x = Math.random() * canvas.width;
+            }
+        });
+        requestAnimationFrame(drawConfetti);
+    }
+    drawConfetti();
+</script>
+
+</body>
+</html>
