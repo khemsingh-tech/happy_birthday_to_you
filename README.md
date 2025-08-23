@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday 🎉</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+
+  <main class="card" role="main" aria-label="Happy Birthday card">
+    <h1 class="title">🎉 Happy Birthday! 🎂</h1>
+    <p class="subtitle">Wishing you joy, laughter, and lots of cake!</p>
+
+    <div class="balloons" aria-hidden="true">
+      <span class="balloon b1"></span>
+      <span class="balloon b2"></span>
+      <span class="balloon b3"></span>
+      <span class="balloon b4"></span>
+    </div>
+
+    <button id="replay" class="btn" aria-label="Replay animation">
+      Replay 🎈
+    </button>
+  </main>
+
+  <footer class="credit">
+    Made with ❤️ just for you
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
